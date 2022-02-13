@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'models/word.dart';
+import 'api/api_controller.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final apiController = APIController();
   var _word = Word(
     spanish: "jugar",
     dutch: "spelen",
@@ -38,13 +42,14 @@ class _MyHomePageState extends State<MyHomePage> {
   );
 
   void _refresh() {
-    setState(() {
-      _word = Word(
-        spanish: "jugar",
-        dutch: "spelen",
-        category: "Werkwoorden",
-        level: 1,
-      );
+    apiController.fetchWords().then((response) {
+      setState(() {
+        Iterable list = json.decode(response.body);
+        final words = list.map((model) => Word.fromJson(model)).toList();
+        words.shuffle();
+        if(words.length > 0)
+          _word = words.first;
+      });
     });
   }
 
