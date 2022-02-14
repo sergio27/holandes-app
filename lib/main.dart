@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import 'models/word.dart';
 import 'api/api_controller.dart';
+import 'models/word.dart';
+import 'widgets/word_card.dart';
+import 'widgets/custom_button.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,23 +36,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final apiController = APIController();
-  var _word = Word(
-    spanish: "jugar",
-    dutch: "spelen",
-    category: "Werkwoorden",
-    level: 1,
-  );
+  List<Word> _words = [];
+  Word? _word;
 
   void _refresh() {
-    apiController.fetchWords().then((response) {
-      setState(() {
-        Iterable list = json.decode(response.body);
-        final words = list.map((model) => Word.fromJson(model)).toList();
-        words.shuffle();
-        if(words.length > 0)
-          _word = words.first;
+    if(_words.isEmpty) {
+      apiController.fetchWords().then((response) {
+        setState(() {
+          Iterable list = json.decode(utf8.decode(response.bodyBytes));
+          _words = list.map((model) => Word.fromJson(model)).toList();
+          _words.shuffle();
+          if(_words.length > 0)
+            _word = _words.first;
+        });
       });
-    });
+    }
+    else {
+      setState(() {
+        _words.shuffle();
+        _word = _words.first;
+      });
+    }
   }
 
   @override
@@ -59,16 +65,33 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      backgroundColor: Colors.blueGrey[50],
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              '${_word.spanish}',
+          children: [
+            Container(
+              child: Column(
+                children: [
+                  WordCard(
+                    word: _word,
+                  ),
+                ],
+              ),
+              decoration: new BoxDecoration(
+                  color: Colors.white,
+              ),
+              margin: EdgeInsets.all(45.0),
+              width: double.infinity,
             ),
-            Text(
-              '${_word.dutch}',
-              style: Theme.of(context).textTheme.headline4,
+            Container(
+              child: CustomButton(
+                text: "Siguiente",
+              ),
+              decoration: new BoxDecoration(
+                color: Colors.orangeAccent,
+              ),
+              margin: EdgeInsets.all(45.0),
+              width: double.infinity,
             ),
           ],
         ),
