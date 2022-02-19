@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class WordCard extends StatelessWidget {
-  final word;
+class CategoryCell extends StatelessWidget {
+  final category;
 
-  WordCard({required this.word});
+  CategoryCell({required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -14,19 +14,9 @@ class WordCard extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Text(
-                word != null? '${word!.category}' : "",
-                style: Theme.of(context).textTheme.headline6,
-              ),
+              child: Text(category),
             ),
-            Text(
-              word != null? '${word!.spanish}' : "",
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            Text(
-              word != null? '${word!.dutch}' : "",
-              style: Theme.of(context).textTheme.headline5,
-            ),
+            Text("1"),
           ],
         ),
         padding: EdgeInsets.all(25.0),

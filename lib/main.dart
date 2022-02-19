@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:holandes_app/widgets/category_list.dart';
 
 import 'api/api_controller.dart';
 import 'models/word.dart';
-import 'widgets/word_card.dart';
-import 'widgets/custom_button.dart';
+import 'utilities/game_controller.dart';
+import 'widgets/category_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,6 +37,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final apiController = APIController();
+  final gameController = GameController();
+
   List<Word> _words = [];
   Word? _word;
 
@@ -67,34 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Center(
-        child: Column(
-          children: [
-            Container(
-              child: Column(
-                children: [
-                  WordCard(
-                    word: _word,
-                  ),
-                ],
-              ),
-              decoration: new BoxDecoration(
-                  color: Colors.white,
-              ),
-              margin: EdgeInsets.all(45.0),
-              width: double.infinity,
-            ),
-            Container(
-              child: CustomButton(
-                text: "Siguiente",
-              ),
-              decoration: new BoxDecoration(
-                color: Colors.orangeAccent,
-              ),
-              margin: EdgeInsets.all(45.0),
-              width: double.infinity,
-            ),
-          ],
-        ),
+        child: CategoryList(categories: gameController.getCategories(_words)),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _refresh,
