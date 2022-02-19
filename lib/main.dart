@@ -5,6 +5,7 @@ import 'package:holandes_app/widgets/category_list.dart';
 
 import 'api/api_controller.dart';
 import 'models/word.dart';
+import 'screens/word_pack_screen.dart';
 import 'utilities/game_controller.dart';
 import 'widgets/word_pack_list.dart';
 
@@ -40,22 +41,21 @@ class _MyHomePageState extends State<MyHomePage> {
   final gameController = GameController();
 
   List<Word> _words = [];
-  Word? _word;
 
-  void _refresh() {
+  @override
+  void initState() {
+    super.initState();
+
+    loadWords();
+  }
+
+  void loadWords() {
     if(_words.isEmpty) {
       apiController.fetchWords().then((response) {
         setState(() {
           Iterable list = json.decode(utf8.decode(response.bodyBytes));
           _words = list.map((model) => Word.fromJson(model)).toList();
-          if(_words.length > 0)
-            _word = _words.first;
         });
-      });
-    }
-    else {
-      setState(() {
-        _word = _words.first;
       });
     }
   }
@@ -68,13 +68,21 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Center(
-        child: WordPackList(wordPacks: gameController.getWordPacks(_words)),
+        child: WordPackList(
+            wordPacks: gameController.getWordPacks(_words),
+            wordPackSelected: chooseWordPack),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _refresh,
+        onPressed: chooseWordPack,
         tooltip: 'Refresh',
         child: Icon(Icons.refresh),
       ),
     );
+  }
+
+  void chooseWordPack() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return WordPackScreen();
+    }));
   }
 }

@@ -6,8 +6,9 @@ import '../widgets/word_pack_cell.dart';
 
 class WordPackList extends StatelessWidget {
   final wordPacks;
+  final wordPackSelected;
 
-  WordPackList({required this.wordPacks});
+  WordPackList({required this.wordPacks, required this.wordPackSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,8 @@ class WordPackList extends StatelessWidget {
     List<Container> list = [];
     for(var i = 0; i < wordPacks.length; i++){
       list.add(new Container(
-        child: WordPackCell(wordPack: wordPacks[i]),
+        child: WordPackCell(wordPack: wordPacks[i],
+          wordPackSelected: wordPackSelected,),
       ),);
     }
     return list;

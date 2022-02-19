@@ -4,8 +4,9 @@ import '../models/word_pack.dart';
 
 class WordPackCell extends StatelessWidget {
   final wordPack;
+  final wordPackSelected;
 
-  WordPackCell({required this.wordPack});
+  WordPackCell({required this.wordPack, required this.wordPackSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class WordPackCell extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
+      onTap: wordPackSelected,
     );
   }
 }
