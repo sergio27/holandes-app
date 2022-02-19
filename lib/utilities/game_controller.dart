@@ -24,6 +24,15 @@ class GameController {
         wordPacks.add(pack);
     });
 
+    wordPacks.sort( (WordPack a, WordPack b) {
+      if(a.category == b.category) {
+        return a.level.compareTo(b.level);
+      }
+      else {
+        return a.category.compareTo(b.category);
+      }
+    });
+
     return wordPacks;
   }
 }

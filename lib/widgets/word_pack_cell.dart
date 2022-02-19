@@ -11,19 +11,21 @@ class WordPackCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
+        width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Text("${wordPack.category} (${wordPack.level})"),
+              padding: const EdgeInsets.all(10.0),
+              child: Text("${wordPack.category}"),
             ),
-            Text("1"),
+            Text("${wordPack.level}"),
           ],
         ),
-        padding: EdgeInsets.all(25.0),
+        padding: EdgeInsets.all(15.0),
         margin: EdgeInsets.all(5.0),
         decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
