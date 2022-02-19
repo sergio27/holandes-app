@@ -6,7 +6,7 @@ import 'package:holandes_app/widgets/category_list.dart';
 import 'api/api_controller.dart';
 import 'models/word.dart';
 import 'utilities/game_controller.dart';
-import 'widgets/category_list.dart';
+import 'widgets/word_pack_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() {
           Iterable list = json.decode(utf8.decode(response.bodyBytes));
           _words = list.map((model) => Word.fromJson(model)).toList();
-          _words.shuffle();
           if(_words.length > 0)
             _word = _words.first;
         });
@@ -56,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     else {
       setState(() {
-        _words.shuffle();
         _word = _words.first;
       });
     }
@@ -70,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Center(
-        child: CategoryList(categories: gameController.getCategories(_words)),
+        child: WordPackList(wordPacks: gameController.getWordPacks(_words)),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _refresh,

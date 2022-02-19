@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CategoryCell extends StatelessWidget {
-  final category;
+import '../models/word_pack.dart';
 
-  CategoryCell({required this.category});
+class WordPackCell extends StatelessWidget {
+  final wordPack;
+
+  WordPackCell({required this.wordPack});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class CategoryCell extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Text("${category}"),
+              child: Text("${wordPack.category} (${wordPack.level})"),
             ),
             Text("1"),
           ],
