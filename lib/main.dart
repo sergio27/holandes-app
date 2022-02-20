@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:holandes_app/widgets/category_list.dart';
 
-import 'api/api_controller.dart';
+import 'controllers//api_controller.dart';
+import 'controllers/game_controller.dart';
 import 'models/word.dart';
-import 'screens/word_pack_screen.dart';
-import 'utilities/game_controller.dart';
 import 'widgets/word_pack_list.dart';
 
 void main() {
