@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/test_card.dart';
+import '../widgets/word_card.dart';
 
 class WordPackScreen extends StatefulWidget {
   final wordPack;
@@ -20,7 +20,9 @@ class WordPackScreenState extends State<WordPackScreen> {
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Center(
-        child: TestCard(word: widget.wordPack.words.first),
+        child: WordCard(
+            word: widget.wordPack.words.first,
+        ),
       ),
     );
   }
