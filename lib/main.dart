@@ -69,20 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.blueGrey[50],
       body: Center(
         child: WordPackList(
-            wordPacks: gameController.getWordPacks(_words),
-            wordPackSelected: chooseWordPack),
+            wordPacks: gameController.getWordPacks(_words)),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: chooseWordPack,
+        onPressed: (){},
         tooltip: 'Refresh',
         child: Icon(Icons.refresh),
       ),
     );
-  }
-
-  void chooseWordPack() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return WordPackScreen();
-    }));
   }
 }

@@ -1,14 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:holandes_app/widgets/category_list.dart';
 
-import '../api/api_controller.dart';
-import '../models/word.dart';
-import '../utilities/game_controller.dart';
-import '../widgets/word_pack_list.dart';
+import '../models/word_pack.dart';
 
 class WordPackScreen extends StatefulWidget {
+  final wordPack;
+
+  WordPackScreen({required this.wordPack});
+
   @override
   WordPackScreenState createState() => WordPackScreenState();
 }
@@ -18,7 +16,7 @@ class WordPackScreenState extends State<WordPackScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Category"),
+        title: Text("${widget.wordPack.category} (${widget.wordPack.level})"),
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Center(

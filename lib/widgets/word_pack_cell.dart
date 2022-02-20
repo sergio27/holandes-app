@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../models/word_pack.dart';
+import '../screens/word_pack_screen.dart';
 
 class WordPackCell extends StatelessWidget {
   final wordPack;
-  final wordPackSelected;
 
-  WordPackCell({required this.wordPack, required this.wordPackSelected});
+  WordPackCell({required this.wordPack});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,11 @@ class WordPackCell extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
-      onTap: wordPackSelected,
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return WordPackScreen(wordPack: wordPack,);
+        }));
+      },
     );
   }
 }
