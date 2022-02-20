@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../models/word_pack.dart';
+import '../models/word.dart';
+import '../widgets/word_card.dart';
 
 class WordPackScreen extends StatefulWidget {
   final wordPack;
@@ -16,15 +17,17 @@ class WordPackScreenState extends State<WordPackScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget.wordPack.category} (${widget.wordPack.level})"),
+        title: Text("${widget.wordPack}"),
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Center(
-        child: Text(""),
+        child: WordCard(word: widget.wordPack.words.first),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          setState(() {
+            widget.wordPack.words.shuffle();
+          });
         },
         tooltip: 'Refresh',
         child: Icon(Icons.refresh),

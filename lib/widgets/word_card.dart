@@ -12,19 +12,12 @@ class WordCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Text(
-                word != null? '${word!.category}' : "",
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ),
             Text(
-              word != null? '${word!.spanish}' : "",
+              word.spanish,
               style: Theme.of(context).textTheme.headline5,
             ),
             Text(
-              word != null? '${word!.dutch}' : "",
+              word.dutch,
               style: Theme.of(context).textTheme.headline5,
             ),
           ],
