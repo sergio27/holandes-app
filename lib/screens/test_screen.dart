@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/test_card.dart';
+import '../screens/results_screen.dart';
 
 class TestScreen extends StatefulWidget {
   final wordPack;
@@ -85,13 +86,24 @@ class TestScreenState extends State<TestScreen> {
   void showNextWord() {
     answerController.text = "";
 
-    if(wordIndex +1 >= widget.wordPack.words.length)
-      wordIndex = 0;
-    else
-      wordIndex +=1;
+    if(wordIndex +1 >= widget.wordPack.words.length) {
+      showResults();
+      return;
+    }
+    else {
+      wordIndex += 1;
+    }
 
     word = widget.wordPack.words[wordIndex];
 
     progress = wordIndex / widget.wordPack.words.length;
+  }
+
+  void showResults(){
+    var resultMessage = "Resultado: ${score} de ${widget.wordPack.words.length}"
+        " respuestas correctas.";
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return ResultsScreen(resultMessage: resultMessage,);
+    }));
   }
 }
