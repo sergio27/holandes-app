@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/word.dart';
-import '../widgets/word_card.dart';
+import '../widgets/test_card.dart';
 
 class WordPackScreen extends StatefulWidget {
   final wordPack;
@@ -21,16 +20,7 @@ class WordPackScreenState extends State<WordPackScreen> {
       ),
       backgroundColor: Colors.blueGrey[50],
       body: Center(
-        child: WordCard(word: widget.wordPack.words.first),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            widget.wordPack.words.shuffle();
-          });
-        },
-        tooltip: 'Refresh',
-        child: Icon(Icons.refresh),
+        child: TestCard(word: widget.wordPack.words.first),
       ),
     );
   }

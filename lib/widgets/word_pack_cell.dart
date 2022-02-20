@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/word_pack.dart';
-import '../screens/word_pack_screen.dart';
+import '../screens/test_screen.dart';
 
 class WordPackCell extends StatelessWidget {
   final wordPack;
@@ -32,7 +31,7 @@ class WordPackCell extends StatelessWidget {
       ),
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return WordPackScreen(wordPack: wordPack,);
+          return TestScreen(wordPack: wordPack,);
         }));
       },
     );
