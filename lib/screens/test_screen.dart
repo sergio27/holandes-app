@@ -4,12 +4,6 @@ import '../widgets/test_card.dart';
 
 class TestScreen extends StatefulWidget {
   final wordPack;
-  bool checking = false;
-
-  var word;
-  bool rightAnswer = false;
-
-  final TextEditingController answerController = TextEditingController();
 
   TestScreen({required this.wordPack});
 
@@ -18,12 +12,22 @@ class TestScreen extends StatefulWidget {
 }
 
 class TestScreenState extends State<TestScreen> {
+  bool checking = false;
+  double progress = 0.0;
+  int score = 0;
+
+  int wordIndex = 0;
+  var word;
+  bool rightAnswer = false;
+
+  final TextEditingController answerController = TextEditingController();
+
 
   @override
   void initState() {
     super.initState();
 
-    widget.word = widget.wordPack.words.first;
+    word = widget.wordPack.words.first;
   }
 
   @override
@@ -36,39 +40,58 @@ class TestScreenState extends State<TestScreen> {
       body: Center(
           child: Column(
             children: [
-              TestCard(
-                word: widget.word,
-                answerController: widget.answerController,
+              Container(
+                padding: EdgeInsets.all(30.0),
+                  child: LinearProgressIndicator(
+                    backgroundColor: Colors.white,
+                    value:progress,
+                  )
               ),
-              if (widget.checking) Icon(widget.rightAnswer? Icons.done: Icons.close),
+              TestCard(
+                word: word,
+                answerController: answerController,
+              ),
+              if (checking) Icon(rightAnswer? Icons.done: Icons.close),
             ],
           ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            if(!widget.checking) {
-              var answer = widget.answerController.text;
-              if(answer == widget.word.dutch) {
-                widget.rightAnswer = true;
-              }
-              else {
-                widget.rightAnswer = false;
-              }
+            if(!checking)
+              checkAnswer();
+            else
+              showNextWord();
 
-              widget.checking = true;
-            }
-            else {
-              widget.answerController.text = "";
-
-              widget.wordPack.words.shuffle();
-              widget.word = widget.wordPack.words.first;
-              widget.checking = false;
-            }
+            checking = !checking;
           });
         },
-        child: Icon(widget.checking? Icons.navigate_next: Icons.grading),
+        child: Icon(checking? Icons.navigate_next: Icons.grading),
       ),
     );
+  }
+
+  void checkAnswer() {
+    var answer = answerController.text;
+    if(answer == word.dutch) {
+      rightAnswer = true;
+      score += 1;
+    }
+    else {
+      rightAnswer = false;
+    }
+  }
+
+  void showNextWord() {
+    answerController.text = "";
+
+    if(wordIndex +1 >= widget.wordPack.words.length)
+      wordIndex = 0;
+    else
+      wordIndex +=1;
+
+    word = widget.wordPack.words[wordIndex];
+
+    progress = wordIndex / widget.wordPack.words.length;
   }
 }
